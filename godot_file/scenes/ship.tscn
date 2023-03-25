@@ -18,7 +18,9 @@ animations = [{
 }]
 
 [node name="Ship" type="CharacterBody2D"]
-scale = Vector2(0.25, 0.25)
+position = Vector2(40, 40)
+scale = Vector2(0.1, 0.1)
+collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_w6kps")
 
