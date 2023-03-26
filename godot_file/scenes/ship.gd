@@ -4,10 +4,10 @@ extends CharacterBody2D
 var SPEED = 0
 var screen_size # Size of the game window.
 var direction
-@export var rotation_speed_rad = 0.1
+@export var rotation_speed_rad = 0.075
 
 @export var velocity_damping_factor = 0.05 
-var rotation_update
+var rotation_update = 0.0
 var myvelocity = Vector2.ZERO
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 func _ready():
@@ -19,7 +19,7 @@ func _ready():
 
 func _physics_process(delta):
 	myvelocity = (1-velocity_damping_factor) * myvelocity
-	rotation_update =  0.0
+	rotation_update =  0.0 
 
 	if Input.is_action_pressed("ui_forward"):
 		print("FORWARD")
