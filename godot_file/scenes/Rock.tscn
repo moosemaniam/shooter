@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://82gfmkjl4w4y" path="res://art/Rocks.png" id="1_toaq7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hloxu"]
-size = Vector2(312, 224)
+size = Vector2(732, 514)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i8y0w"]
 animations = [{
@@ -17,10 +17,12 @@ animations = [{
 }]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+position = Vector2(200, 200)
+scale = Vector2(0.2, 0.2)
 motion_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(8, -69)
+position = Vector2(7, -76.5)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_hloxu")
 
