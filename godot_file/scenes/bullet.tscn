@@ -1,6 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2ls8g6k8efgt"]
+[gd_scene load_steps=5 format=3 uid="uid://c2ls8g6k8efgt"]
 
 [ext_resource type="Texture2D" uid="uid://ca0s116svcew2" path="res://art/Bullet.png" id="1_7x12t"]
+
+[sub_resource type="GDScript" id="GDScript_js5l5"]
+script/source = "extends Node2D 
+var direction = Vector2()
+var SPEED = 1200
+var screen_size
+var velocity = Vector2()
+func _ready():
+	screen_size = get_viewport_rect().size
+	SPEED = sqrt(screen_size.x ** 2 +screen_size.y ** 2 )
+	
+	
+func set_direction(direction):
+	velocity = direction.normalized() * SPEED
+	
+func _physics_process(delta):
+	position += velocity * delta
+	#If bullet goes out of the screen, kill it
+	if(position.x > screen_size.x || position.y > screen_size.y):
+		queue_free()
+		print(\"Clean up bullet\")
+	
+
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p4lcm"]
 radius = 50.0
@@ -16,11 +40,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Bullet" type="CharacterBody2D"]
+[node name="Bullet" type="Node2D"]
 position = Vector2(40, 40)
 scale = Vector2(0.1, 0.1)
-collision_layer = 2
-motion_mode = 1
+script = SubResource("GDScript_js5l5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-10, -10)
@@ -28,3 +51,6 @@ shape = SubResource("CircleShape2D_p4lcm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2dnv7")
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 3.0

@@ -1,11 +1,12 @@
 extends CharacterBody2D
+var bullet_shot_time = -1000
 
 
 var SPEED = 0
 var screen_size # Size of the game window.
 var direction
-@export var rotation_speed_rad = 0.075
-
+@export var rotation_speed_rad = 0.04
+var bullet_scene = preload("res://scenes/bullet.tscn")
 @export var velocity_damping_factor = 0.05 
 var rotation_update = 0.0
 var myvelocity = Vector2.ZERO
@@ -14,9 +15,15 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	SPEED = (screen_size.x + screen_size.y)/20.0
 	direction = Vector2(0.0,-1.0)
-	pass
+	
 
-
+func fire_bullet():
+	var bullet = bullet_scene.instantiate()
+	bullet.position = position
+	#bullet.direction = direction
+	bullet.set_direction(direction)
+	get_parent().add_child(bullet)
+	
 func _physics_process(delta):
 	myvelocity = (1-velocity_damping_factor) * myvelocity
 	rotation_update =  0.0 
@@ -35,6 +42,12 @@ func _physics_process(delta):
 		print("ROTATE Counter clockwise")
 		direction = direction.rotated(-rotation_speed_rad)
 		rotation_update = -rotation_speed_rad
+		
+	if Input.is_action_just_pressed("ui_shoot"):
+		fire_bullet()
+
+		
+		
 	rotation = (rotation + rotation_update)
 	position += myvelocity * delta
 	if(position.x > screen_size.x ):
