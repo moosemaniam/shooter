@@ -4,6 +4,7 @@
 
 [sub_resource type="GDScript" id="GDScript_js5l5"]
 script/source = "extends Node2D 
+signal hit
 var direction = Vector2()
 var SPEED = 1200
 var screen_size
@@ -24,6 +25,11 @@ func _physics_process(delta):
 		print(\"Clean up bullet\")
 	
 
+
+
+func _on_Rock_body_entered(body: PhysicsBody2D) ->void : 
+		queue_free()
+		print(\"Bullet hit a Asteriod\")
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p4lcm"]
@@ -40,12 +46,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Bullet" type="Node2D"]
+[node name="Bullet" type="Area2D" groups=["Bullet"]]
 position = Vector2(40, 40)
 scale = Vector2(0.1, 0.1)
 script = SubResource("GDScript_js5l5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 0
 position = Vector2(-10, -10)
 shape = SubResource("CircleShape2D_p4lcm")
 

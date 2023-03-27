@@ -8,7 +8,7 @@
 position = Vector2(504, 252)
 script = ExtResource("1_n0u1n")
 
-[node name="Ship" parent="." instance=ExtResource("1_jx8m1")]
+[node name="Ship" parent="." groups=["Ship"] instance=ExtResource("1_jx8m1")]
 position = Vector2(78, 26)
 
 [node name="Asteriod_timer" type="Timer" parent="."]
